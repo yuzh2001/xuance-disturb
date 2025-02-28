@@ -5,9 +5,9 @@ if __name__ == "__main__":  # 新增保护块
         method="mappo",
         env="mpe",
         env_id="simple_spread_v3",
-        is_test=False,
+        is_test=True,
     )
-    runner.run()
+    runner.benchmark()
 
     import requests
 

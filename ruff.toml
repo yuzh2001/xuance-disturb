@@ -1,0 +1,7 @@
+[lint]
+ignore = [
+    "F401",  # 未使用的导入
+    "F403",  # from module import * 使用
+    "E402",  # 模块级导入不在文件顶部
+    "I001",  # import 排序
+]

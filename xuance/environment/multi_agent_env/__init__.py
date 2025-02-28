@@ -40,6 +40,7 @@ try:
     REGISTRY_MULTI_AGENT_ENV["MultiWalker"] = MultiWalkerEnv
 except Exception as error:
     REGISTRY_MULTI_AGENT_ENV["MultiWalker"] = str(error)
+    raise error
 
 __all__ = [
     "REGISTRY_MULTI_AGENT_ENV",
