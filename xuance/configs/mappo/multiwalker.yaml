@@ -12,7 +12,6 @@ runner: "MARL"
 benchmark: True
 # more
 render: False
-distributed_training: False
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorflow"
 
 # logging
@@ -24,7 +23,18 @@ render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
 fps: 50  # The frames per second for the rendering videos in log file.
 test_mode: False  # Whether to run in test mode.
 device: "cuda:0"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; TensorFlow: "cpu"/"CPU", "gpu"/"GPU"; MindSpore: "CPU", "GPU", "Ascend", "Davinci".
+distributed_training: False
 master_port: '12355'  # The master port for current experiment when use distributed training.
+
+# training and evaluation
+running_steps: 10000000  # 总训练步数
+eval_interval: 100000  # 评估间隔
+test_episode: 10  # 测试轮数
+
+# logging
+log_dir: "./logs/mappo/"  # 日志保存路径
+model_dir: "./models/mappo/"  # 模型保存路径
+
 
 # recurrent settings for Basic_RNN representation
 use_rnn: False  # 是否使用RNN网络结构
@@ -90,12 +100,3 @@ use_gae: True  # 是否使用GAE
 gae_lambda: 0.95  # GAE的lambda参数
 use_grad_clip: True  # 是否使用梯度裁剪
 grad_clip_norm: 10.0  # 梯度裁剪范数
-
-# training and evaluation
-running_steps: 10000000  # 总训练步数
-eval_interval: 100000  # 评估间隔
-test_episode: 10  # 测试轮数
-
-# logging
-log_dir: "./logs/mappo/"  # 日志保存路径
-model_dir: "./models/mappo/"  # 模型保存路径
