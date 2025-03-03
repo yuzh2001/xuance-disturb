@@ -27,7 +27,7 @@ distributed_training: False
 master_port: '12355'  # The master port for current experiment when use distributed training.
 
 # training and evaluation
-running_steps: 10000000  # 总训练步数
+running_steps: 60000000  # 总训练步数
 eval_interval: 100000  # 评估间隔
 test_episode: 10  # 测试轮数
 
@@ -72,10 +72,10 @@ max_cycles: 500  # 最大步数
 # training parameters
 seed: 1  # 随机种子
 parallels: 10  # 并行环境数量
-buffer_size: 5000  # 增大buffer size以存储更多经验
+buffer_size: 50000  # 增大buffer size以存储更多经验
 n_epochs: 10  # 每次更新的训练轮数
-n_minibatch: 10  # minibatch数量
-learning_rate: 0.0007  # 学习率
+n_minibatch: 100  # minibatch数量
+learning_rate: 0.0002  # 学习率
 weight_decay: 0  # 权重衰减系数
 
 # PPO specific parameters
@@ -92,8 +92,8 @@ end_factor_lr_decay: 0.5  # 学习率衰减终止因子
 use_global_state: False  # 是否使用全局状态
 use_value_clip: True  # 是否使用价值裁剪
 value_clip_range: 0.2  # 价值裁剪范围
-use_value_norm: True  # 是否使用价值标准化
-use_huber_loss: True  # 是否使用Huber损失
+use_value_norm: False  # 是否使用价值标准化
+use_huber_loss: False  # 是否使用Huber损失
 huber_delta: 10.0  # Huber损失的delta参数
 use_advnorm: True  # 是否使用优势标准化
 use_gae: True  # 是否使用GAE
