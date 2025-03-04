@@ -558,7 +558,8 @@ class OnPolicyMARLAgents(MARLAgents):
         envs = self.envs if env_fn is None else env_fn()
         num_envs = envs.num_envs
         videos, episode_videos = [[] for _ in range(num_envs)], []
-        episode_count, scores, best_score = 0, [0.0 for _ in range(num_envs)], -np.inf
+        episode_count, best_score = 0, -np.inf
+        scores = []
         obs_dict, info = envs.reset()
         avail_actions = envs.buf_avail_actions if self.use_actions_mask else None
         state = envs.buf_state if self.use_global_state else None
@@ -703,6 +704,7 @@ class OnPolicyMARLAgents(MARLAgents):
                 "Test-Results/Episode-Rewards/Mean-Score": np.mean(scores),
                 "Test-Results/Episode-Rewards/Std-Score": np.std(scores),
             }
+            print(scores)
             self.log_infos(test_info, self.current_step)
             if env_fn is not None:
                 envs.close()

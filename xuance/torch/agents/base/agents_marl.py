@@ -8,12 +8,12 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.distributed as dist
-import wandb
 from gym.spaces import Space
 from torch import nn
 from torch.distributed import destroy_process_group
 from torch.utils.tensorboard import SummaryWriter
 
+import wandb
 from xuance.common import (
     Dict,
     List,
@@ -25,7 +25,7 @@ from xuance.common import (
 )
 from xuance.environment import DummyVecMultiAgentEnv, SubprocVecMultiAgentEnv
 from xuance.torch import Module, ModuleDict, REGISTRY_Learners, REGISTRY_Representation
-from xuance.torch.learners import learner
+from xuance.torch.learners import Learner, learner
 from xuance.torch.utils import (
     ActivationFunctions,
     NormalizeFunctions,
@@ -163,7 +163,7 @@ class MARLAgents(ABC):
             [self.agent_keys[0]] if self.use_parameter_sharing else self.agent_keys
         )
         self.policy: Optional[nn.Module] = None
-        self.learner: Optional[learner] = None
+        self.learner: Optional[Learner] = None
         self.memory: Optional[object] = None
 
     def store_experience(self, *args, **kwargs):
