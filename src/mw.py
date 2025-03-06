@@ -7,7 +7,7 @@ from xuance.common import get_configs
 from xuance.environment import make_envs
 from xuance.torch.agents import MAPPO_Agents
 from xuance.torch.utils.operations import set_seed
-
+import wandb
 
 def run(args):
     configs_dict = get_configs(file_dir="./xuance/configs/mappo/multiwalker.yaml")
@@ -54,6 +54,7 @@ def run(args):
             "Best Model Score: %.2f, std=%.2f"
             % (best_scores_info["mean"], best_scores_info["std"])
         )
+        wandb.run.summary["best_score"] = best_scores_info["mean"]
     else:
         if configs.test:
 
