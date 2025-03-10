@@ -3,8 +3,8 @@ env_name: "MultiWalker"
 env_id: "multiwalker_v9"
 env_seed: 1
 continuous_action: True
-learner: "MATD3_Learner"
-policy: "MATD3_Policy"
+learner: "MASAC_Learner"
+policy: "Gaussian_MASAC_Policy"
 representation: "Basic_Identical"
 vectorize: "SubprocVecMultiAgentEnv"
 runner: "MARL"
@@ -40,35 +40,34 @@ terrain_length: 200  # 地形长度
 max_cycles: 500  # 最大步数
 
 # network architecture
+
 representation_hidden_size: []  # the units for each hidden layer
-actor_hidden_size: [256, 256]
-critic_hidden_size: [256, 256]
+actor_hidden_size: [64, 64]
+critic_hidden_size: [64, 64]
 activation: 'leaky_relu'
 activation_action: 'sigmoid'
-use_parameter_sharing: True
+use_parameter_sharing: False
 use_actions_mask: False
 
 
 # training parameters
 seed: 1  # 随机种子
-parallels: 50  # 并行环境数量
+parallels: 16  # 并行环境数量
 buffer_size: 100000  # 增大buffer size以存储更多经验
-batch_size: 100
-learning_rate_actor: 0.001  # learning rate for actor
+batch_size: 256
+learning_rate_actor: 0.01  # learning rate for actor
 learning_rate_critic: 0.001  # learning rate for critic
 gamma: 0.95  # discount factor
-tau: 0.01  # soft update for target networks
-actor_update_delay: 2
+tau: 0.001  # soft update for target networks
+alpha: 0.01
+use_automatic_entropy_tuning: True
 
-start_noise: 1.0
-end_noise: 0.01
-sigma: 0.1  # random noise for continuous actions
 start_training: 1000  # start training after n episodes
-running_steps: 100000000
+running_steps: 10000000
 training_frequency: 25
 
-use_grad_clip: True
-grad_clip_norm: 0.5
+use_grad_clip: False
+grad_clip_norm: 10
 
 # training and evaluation
 eval_interval: 100000  # 评估间隔

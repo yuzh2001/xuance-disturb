@@ -5,17 +5,17 @@ import numpy as np
 
 from xuance.common import get_configs
 from xuance.environment import make_envs
-from xuance.torch.agents import MATD3_Agents
+from xuance.torch.agents import MASAC_Agents
 from xuance.torch.utils.operations import set_seed
 import wandb
 
 def run(args):
-    configs_dict = get_configs(file_dir="./xuance/configs/matd3/multiwalker.yaml")
+    configs_dict = get_configs(file_dir="./xuance/configs/masac/mw_paper.yaml")
     configs = argparse.Namespace(**configs_dict)
 
     set_seed(configs.seed)
     envs = make_envs(configs)  # Make parallel environments.
-    Agent = MATD3_Agents(config=configs, envs=envs)  # Create a PPO agent from XuanCe.
+    Agent = MASAC_Agents(config=configs, envs=envs)  # Create a PPO agent from XuanCe.
 
     if configs.benchmark:
 
