@@ -53,7 +53,7 @@ use_actions_mask: False
 seed: 1  # 随机种子
 parallels: 160  # 并行环境数量
 buffer_size: 100000  # 增大buffer size以存储更多经验
-batch_size: 100
+batch_size: 512
 learning_rate_actor: 0.0001  # learning rate for actor
 learning_rate_critic: 0.001  # learning rate for critic
 gamma: 0.95  # discount factor

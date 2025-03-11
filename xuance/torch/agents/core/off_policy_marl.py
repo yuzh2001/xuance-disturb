@@ -276,14 +276,14 @@ class OffPolicyMARLAgents(MARLAgents):
                     if self.use_actions_mask:
                         avail_actions[i] = info[i]["reset_avail_actions"]
                         self.envs.buf_avail_actions[i] = info[i]["reset_avail_actions"]
-                    if self.use_wandb:
-                        step_info[f"Train-Results/Episode-Steps/rank_{self.rank}/env-%d" % i] = info[i]["episode_step"]
-                        step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}/env-%d" % i] = info[i]["episode_score"]
-                    else:
-                        step_info[f"Train-Results/Episode-Steps/rank_{self.rank}"] = {
-                            "env-%d" % i: info[i]["episode_step"]}
-                        step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}"] = {
-                            "env-%d" % i: np.mean(itemgetter(*self.agent_keys)(info[i]["episode_score"]))}
+                    # if self.use_wandb:
+                    #     step_info[f"Train-Results/Episode-Steps/rank_{self.rank}/env-%d" % i] = info[i]["episode_step"]
+                    #     step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}/env-%d" % i] = info[i]["episode_score"]
+                    # else:
+                    #     step_info[f"Train-Results/Episode-Steps/rank_{self.rank}"] = {
+                    #         "env-%d" % i: info[i]["episode_step"]}
+                    #     step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}"] = {
+                    #         "env-%d" % i: np.mean(itemgetter(*self.agent_keys)(info[i]["episode_score"]))}
                     self.log_infos(step_info, self.current_step)
                     return_info.update(step_info)
 

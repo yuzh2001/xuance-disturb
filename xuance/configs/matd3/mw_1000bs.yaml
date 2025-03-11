@@ -40,7 +40,7 @@ terrain_length: 200  # 地形长度
 max_cycles: 500  # 最大步数
 
 # network architecture
-representation_hidden_size: []  # the units for each hidden layer
+representation_hidden_size: [256, 256]  # the units for each hidden layer
 actor_hidden_size: [400, 300]
 critic_hidden_size: [400, 300]
 activation: 'relu'
@@ -51,12 +51,12 @@ use_actions_mask: False
 
 # training parameters
 seed: 1  # 随机种子
-parallels: 160  # 并行环境数量
+parallels: 80  # 并行环境数量
 buffer_size: 100000  # 增大buffer size以存储更多经验
-batch_size: 100
-learning_rate_actor: 0.0001  # learning rate for actor
+batch_size: 1000
+learning_rate_actor: 0.0005  # learning rate for actor
 learning_rate_critic: 0.001  # learning rate for critic
-gamma: 0.95  # discount factor
+gamma: 0.99  # discount factor
 tau: 0.01  # soft update for target networks
 actor_update_delay: 2
 
@@ -65,14 +65,14 @@ end_noise: 0.01
 sigma: 0.1  # random noise for continuous actions
 start_training: 10000  # start training after n episodes
 running_steps: 10000000
-training_frequency: 25
+training_frequency: 50
 
 use_grad_clip: True
 grad_clip_norm: 0.5
 
 # training and evaluation
 eval_interval: 100000  # 评估间隔
-test_episode: 5  # 测试轮数
+test_episode: 10  # 测试轮数
 
 # logging
 log_dir: "./logs/matd3/"  # 日志保存路径

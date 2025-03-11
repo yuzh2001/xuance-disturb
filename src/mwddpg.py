@@ -5,16 +5,16 @@ import numpy as np
 
 from xuance.common import get_configs
 from xuance.environment import make_envs
-from xuance.torch.agents import MATD3_Agents
+from xuance.torch.agents import MADDPG_Agents
 from xuance.torch.utils.operations import set_seed
 import wandb
 from tqdm import trange
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config_path", type=str, default="./xuance/configs/matd3",
+    parser.add_argument("--config_path", type=str, default="./xuance/configs/maddpg",
                       help="配置文件路径")
-    parser.add_argument("--config_name", type=str, default='mw_different_lr.yaml',
+    parser.add_argument("--config_name", type=str, default='mw.yaml',
                       help="配置文件名称,如果指定则会在config_path下寻找该文件")
     return parser.parse_args()
 
@@ -29,7 +29,7 @@ def run(args):
 
     set_seed(configs.seed)
     envs = make_envs(configs)  # Make parallel environments.
-    Agent = MATD3_Agents(config=configs, envs=envs)  # Create a PPO agent from XuanCe.
+    Agent = MADDPG_Agents(config=configs, envs=envs)  # Create a PPO agent from XuanCe.
 
     if configs.benchmark:
 
