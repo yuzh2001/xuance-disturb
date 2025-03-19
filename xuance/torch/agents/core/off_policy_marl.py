@@ -395,9 +395,12 @@ class OffPolicyMARLAgents(MARLAgents):
             if self.config.test_mode:
                 print("Best Score: %.2f" % best_score)
 
+            # 收集每个episode的步长信息
+            episode_steps = [info[i]["episode_step"] for i in range(num_envs) if "episode_step" in info[i]]
+            
             test_info = {
                 "Test-Results/Episode-Rewards": np.mean(scores),
-                "Test-Results/Episode-Rewards-Std": np.std(scores),
+                "Test-Results/Episode-Steps": np.mean(episode_steps) if episode_steps else 0,  # 添加平均步长
             }
 
             self.log_infos(test_info, self.current_step)

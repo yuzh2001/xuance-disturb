@@ -12,9 +12,9 @@ from tqdm import trange
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config_path", type=str, default="./xuance/configs/maddpg",
+    parser.add_argument("--config_path", type=str, default="./src/configs/maddpg",
                       help="配置文件路径")
-    parser.add_argument("--config_name", type=str, default='mw.yaml',
+    parser.add_argument("--config_name", type=str, default='mw',
                       help="配置文件名称,如果指定则会在config_path下寻找该文件")
     return parser.parse_args()
 
@@ -89,7 +89,7 @@ def run(args):
 
     import requests
 
-    requests.get("https://api.day.app/Ya5CADvAuDWf5NR4E8ZGt5/td3训练完成")
+    requests.get("https://api.day.app/Ya5CADvAuDWf5NR4E8ZGt5/ddpg训练完成")
 
 
 if __name__ == "__main__":
