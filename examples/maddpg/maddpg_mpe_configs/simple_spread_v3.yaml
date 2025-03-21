@@ -1,7 +1,9 @@
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
+# logging
+logger: "wandb"  # Choices: "tensorboard", "wandb".
+wandb_user_name: "yuzh2001-iscas"
 project_name: "XuanCe_Benchmark"
-logger: "tensorboard"  # Choices: tensorboard, wandb.
-wandb_user_name: "your_user_name"
+
 render: True
 render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
 fps: 15

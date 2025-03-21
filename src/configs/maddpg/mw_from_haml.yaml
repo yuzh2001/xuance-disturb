@@ -41,10 +41,10 @@ terrain_length: 200  # 地形长度
 max_cycles: 500  # 最大步数
 
 # network architecture
-representation_hidden_size: []  # the units for each hidden layer
+representation_hidden_size: [256, 256]  # the units for each hidden layer
 actor_hidden_size: [256, 256]
 critic_hidden_size: [512, 512]
-activation: 'leaky_relu'
+activation: 'relu'
 activation_action: 'tanh'
 use_parameter_sharing: True
 use_actions_mask: False
@@ -52,28 +52,28 @@ use_actions_mask: False
 
 # training parameters
 seed: 1  # 随机种子
-parallels: 20  # 并行环境数量
-buffer_size: 100000  # 增大buffer size以存储更多经验
-batch_size: 512
-learning_rate_actor: 0.0003  # learning rate for actor
-learning_rate_critic: 0.003  # learning rate for critic
+parallels: 10  # 并行环境数量
+buffer_size: 1000000  # 增大buffer size以存储更多经验
+batch_size: 1000
+learning_rate_actor: 0.0005  # learning rate for actor
+learning_rate_critic: 0.001  # learning rate for critic
 gamma: 0.99  # discount factor
-tau: 0.005  # soft update for target networks
+tau: 0.1  # soft update for target networks
 
 start_noise: 0.1
 end_noise: 0.1
 sigma: 0.1
-start_training: 2000  # start training after n episodes
+start_training: 10000  # start training after n episodes
 running_steps: 100000000
 train_per_step: True  # True: train model per step; False: train model per episode.
-training_frequency: 1
+training_frequency: 50
 
 use_grad_clip: True
 grad_clip_norm: 0.5
 
 # training and evaluation
-eval_interval: 100000  # 评估间隔
-test_episode: 5  # 测试轮数
+eval_interval: 50000  # 评估间隔
+test_episode: 10  # 测试轮数
 
 # logging
 log_dir: "./logs/maddpg/"  # 日志保存路径
