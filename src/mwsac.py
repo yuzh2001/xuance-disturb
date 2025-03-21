@@ -9,8 +9,20 @@ from xuance.torch.agents import MASAC_Agents
 from xuance.torch.utils.operations import set_seed
 import wandb
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config_path", type=str, default="./src/configs/masac",
+                      help="配置文件路径")
+    parser.add_argument("--config_name", type=str, default='mw',
+                      help="配置文件名称,如果指定则会在config_path下寻找该文件")
+    return parser.parse_args()
+
 def run(args):
-    configs_dict = get_configs(file_dir="./xuance/configs/masac/mw_paper.yaml")
+    if args.config_name is not None:
+        config_file = f"{args.config_path}/{args.config_name}.yaml"
+    else:
+        config_file = args.config_path
+    configs_dict = get_configs(file_dir=config_file)
     configs = argparse.Namespace(**configs_dict)
 
     set_seed(configs.seed)
@@ -75,11 +87,11 @@ def run(args):
 
     import requests
 
-    requests.get("https://api.day.app/Ya5CADvAuDWf5NR4E8ZGt5/td3训练完成")
+    requests.get("https://api.day.app/Ya5CADvAuDWf5NR4E8ZGt5/masac训练完成")
 
 
 if __name__ == "__main__":
-    args = {}
+    args = parse_args()
     """
     get_arguments(
         method=parser.method,
