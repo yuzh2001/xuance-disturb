@@ -276,14 +276,14 @@ class OffPolicyMARLAgents(MARLAgents):
                     if self.use_actions_mask:
                         avail_actions[i] = info[i]["reset_avail_actions"]
                         self.envs.buf_avail_actions[i] = info[i]["reset_avail_actions"]
-                    if self.use_wandb:
-                        step_info[f"Train-Results/Episode-Steps/rank_{self.rank}/env-%d" % i] = info[i]["episode_step"]
-                        step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}/env-%d" % i] = info[i]["episode_score"]
-                    else:
-                        step_info[f"Train-Results/Episode-Steps/rank_{self.rank}"] = {
-                            "env-%d" % i: info[i]["episode_step"]}
-                        step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}"] = {
-                            "env-%d" % i: np.mean(itemgetter(*self.agent_keys)(info[i]["episode_score"]))}
+                    # if self.use_wandb:
+                    #     step_info[f"Train-Results/Episode-Steps/rank_{self.rank}/env-%d" % i] = info[i]["episode_step"]
+                    #     step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}/env-%d" % i] = info[i]["episode_score"]
+                    # else:
+                    #     step_info[f"Train-Results/Episode-Steps/rank_{self.rank}"] = {
+                    #         "env-%d" % i: info[i]["episode_step"]}
+                    #     step_info[f"Train-Results/Episode-Rewards/rank_{self.rank}"] = {
+                    #         "env-%d" % i: np.mean(itemgetter(*self.agent_keys)(info[i]["episode_score"]))}
                     self.log_infos(step_info, self.current_step)
                     return_info.update(step_info)
 
@@ -395,9 +395,13 @@ class OffPolicyMARLAgents(MARLAgents):
             if self.config.test_mode:
                 print("Best Score: %.2f" % best_score)
 
+            # 收集每个episode的步长信息
+            episode_steps = [info[i]["episode_step"] for i in range(num_envs) if "episode_step" in info[i]]
+            
+            print(scores)
             test_info = {
                 "Test-Results/Episode-Rewards": np.mean(scores),
-                "Test-Results/Episode-Rewards-Std": np.std(scores),
+                "Test-Results/Episode-Steps": np.mean(episode_steps) if episode_steps else 0,  # 添加平均步长
             }
 
             self.log_infos(test_info, self.current_step)

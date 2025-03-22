@@ -26,3 +26,5 @@ dataset/
 
 demo_mindspore.py
 mnist.npz
+
+.venv

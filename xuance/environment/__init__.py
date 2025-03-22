@@ -1,3 +1,4 @@
+# fmt: off
 from argparse import Namespace
 from xuance.environment.utils import XuanCeEnvWrapper, XuanCeMultiAgentEnvWrapper
 from xuance.environment.utils import RawEnvironment, RawMultiAgentEnv
@@ -6,6 +7,7 @@ from xuance.environment.vector_envs import SubprocVecEnv, SubprocVecEnv_Atari, S
 from xuance.environment.single_agent_env import REGISTRY_ENV
 from xuance.environment.multi_agent_env import REGISTRY_MULTI_AGENT_ENV
 from xuance.environment.vector_envs import REGISTRY_VEC_ENV
+# fmt: on
 
 
 def make_envs(config: Namespace):
@@ -30,6 +32,7 @@ def make_envs(config: Namespace):
     Returns:
         List of environments based on the configuration settings.
     """
+
     def _thunk(env_seed: int = None):
         """
         Function that creates and returns an environment based on the config settings.
@@ -51,11 +54,19 @@ def make_envs(config: Namespace):
             else:
                 return XuanCeEnvWrapper(REGISTRY_ENV[config.env_name](config))
         elif config.env_name in REGISTRY_MULTI_AGENT_ENV.keys():
-            return XuanCeMultiAgentEnvWrapper(REGISTRY_MULTI_AGENT_ENV[config.env_name](config))
+            return XuanCeMultiAgentEnvWrapper(
+                REGISTRY_MULTI_AGENT_ENV[config.env_name](config)
+            )
         else:
-            raise AttributeError(f"The environment named {config.env_name} cannot be created.")
+            raise AttributeError(
+                f"The environment named {config.env_name} cannot be created."
+            )
 
-    distributed_training = config.distributed_training if hasattr(config, "distributed_training") else False
+    distributed_training = (
+        config.distributed_training
+        if hasattr(config, "distributed_training")
+        else False
+    )
     if not hasattr(config, "render_mode"):
         config.render_mode = "human"
 

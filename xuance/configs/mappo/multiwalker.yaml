@@ -1,0 +1,107 @@
+agent: "MAPPO"
+env_name: "MultiWalker"
+env_id: "multiwalker_v9"
+env_seed: 1
+continuous_action: True
+learner: "MAPPO_Clip_Learner"
+policy: "Gaussian_MAAC_Policy"
+representation: "Basic_MLP"
+vectorize: "SubprocVecMultiAgentEnv"
+runner: "MARL"
+
+benchmark: True
+# more
+render: False
+dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorflow"
+
+# logging
+logger: "wandb"  # Choices: "tensorboard", "wandb".
+wandb_user_name: "yuzh2001-iscas"
+project_name: "XuanCe_Benchmark"
+
+render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
+fps: 50  # The frames per second for the rendering videos in log file.
+test_mode: False  # Whether to run in test mode.
+device: "cuda:0"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; TensorFlow: "cpu"/"CPU", "gpu"/"GPU"; MindSpore: "CPU", "GPU", "Ascend", "Davinci".
+distributed_training: False
+master_port: '12355'  # The master port for current experiment when use distributed training.
+
+# training and evaluation
+running_steps: 20000000  # 总训练步数
+eval_interval: 50000  # 评估间隔
+test_episode: 10  # 测试轮数
+
+# logging
+log_dir: "./logs/mappo/"  # 日志保存路径
+model_dir: "./models/mappo/"  # 模型保存路径
+
+
+# recurrent settings for Basic_RNN representation
+use_rnn: False  # 是否使用RNN网络结构
+rnn: "GRU"  # RNN的类型
+fc_hidden_sizes: [128, 128, 128]  # 增大网络容量以处理更复杂的控制任务
+recurrent_hidden_size: 128  # 循环神经网络隐藏层大小
+N_recurrent_layers: 1  # 循环神经网络层数
+dropout: 0  # dropout 概率
+normalize: "LayerNorm"  # 网络标准化方法
+initialize: "orthogonal"  # 网络参数初始化方法
+gain: 0.01
+
+# network architecture
+representation_hidden_size: [256, ]  # 表征网络隐藏层大小
+actor_hidden_size: [256, 256]  # 策略网络隐藏层大小
+critic_hidden_size: [256, 256]  # 价值网络隐藏层大小
+activation: "relu"  # 激活函数类型
+activation_action: "tanh"  # 连续动作空间使用tanh
+use_parameter_sharing: True  # 是否使用参数共享
+use_actions_mask: False  # 是否使用动作掩码
+
+# environment settings
+n_walkers: 3  # walker数量
+position_noise: 1e-3  # 位置观测噪声
+angle_noise: 1e-3  # 角度观测噪声
+forward_reward: 1.0  # 前进奖励系数
+terminate_reward: -100.0  # 终止惩罚
+fall_reward: -10.0  # 跌倒惩罚
+shared_reward: True  # 是否共享奖励
+terminate_on_fall: True  # 是否在跌倒时终止
+remove_on_fall: False  # 是否在跌倒时移除walker
+terrain_length: 200  # 地形长度
+max_cycles: 500  # 最大步数
+
+# training parameters
+seed: 1  # 随机种子
+parallels: 20  # 并行环境数量
+buffer_size: 20000  # 增大buffer size以存储更多经验
+n_epochs: 10  # 每次更新的训练轮数
+n_minibatch: 2  # minibatch数量
+learning_rate: 0.0002  # 学习率
+weight_decay: 0  # 权重衰减系数
+
+# PPO specific parameters
+vf_coef: 0.5  # 价值函数系数
+ent_coef: 0.01  # 熵正则化系数
+target_kl: 0.25  # KL散度目标值
+clip_range: 0.2  # PPO裁剪范围
+clip_type: 1  # 梯度裁剪类型
+gamma: 0.99  # 增大gamma值以更好地处理长期依赖
+
+# tricks
+use_value_clip: True  # 是否使用价值裁剪
+value_clip_range: 0.1  # 价值裁剪范围
+
+use_gae: True  # 是否使用GAE
+gae_lambda: 0.95  # GAE的lambda参数
+
+use_advnorm: True  # 是否使用优势标准化
+
+use_grad_clip: True  # 是否使用梯度裁剪
+grad_clip_norm: 10.0  # 梯度裁剪范数
+
+use_global_state: True  # 是否使用全局状态
+
+use_linear_lr_decay: False  # 是否使用线性学习率衰减
+end_factor_lr_decay: 0.5  # 学习率衰减终止因子
+use_value_norm: True  # 是否使用价值标准化
+use_huber_loss: True  # 是否使用Huber损失
+huber_delta: 10.0  # Huber损失的delta参数
