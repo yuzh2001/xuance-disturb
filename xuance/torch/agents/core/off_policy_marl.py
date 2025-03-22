@@ -306,7 +306,7 @@ class OffPolicyMARLAgents(MARLAgents):
         envs = self.envs if env_fn is None else env_fn()
         num_envs = envs.num_envs
         videos, episode_videos = [[] for _ in range(num_envs)], []
-        episode_count, scores, best_score = 0, [0.0 for _ in range(num_envs)], -np.inf
+        episode_count, scores, best_score = 0, [], -np.inf
         obs_dict, info = envs.reset()
         state = envs.buf_state.copy() if self.use_global_state else None
         avail_actions = envs.buf_avail_actions if self.use_actions_mask else None
@@ -398,6 +398,7 @@ class OffPolicyMARLAgents(MARLAgents):
             # 收集每个episode的步长信息
             episode_steps = [info[i]["episode_step"] for i in range(num_envs) if "episode_step" in info[i]]
             
+            print(scores)
             test_info = {
                 "Test-Results/Episode-Rewards": np.mean(scores),
                 "Test-Results/Episode-Steps": np.mean(episode_steps) if episode_steps else 0,  # 添加平均步长
