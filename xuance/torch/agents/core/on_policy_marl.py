@@ -3,7 +3,6 @@ from copy import deepcopy
 from operator import itemgetter
 
 import numpy as np
-import rich
 import torch
 from tqdm import tqdm
 
@@ -558,8 +557,7 @@ class OnPolicyMARLAgents(MARLAgents):
         envs = self.envs if env_fn is None else env_fn()
         num_envs = envs.num_envs
         videos, episode_videos = [[] for _ in range(num_envs)], []
-        episode_count, best_score = 0, -np.inf
-        scores = []
+        episode_count, scores, best_score = 0, [], -np.inf
         obs_dict, info = envs.reset()
         avail_actions = envs.buf_avail_actions if self.use_actions_mask else None
         state = envs.buf_state if self.use_global_state else None
