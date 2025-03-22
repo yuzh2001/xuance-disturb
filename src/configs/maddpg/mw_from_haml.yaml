@@ -5,7 +5,7 @@ env_seed: 1
 continuous_action: True
 learner: "MADDPG_Learner"
 policy: "MADDPG_Policy"
-representation: "Basic_Identical"
+representation: "Basic_MLP"
 vectorize: "SubprocVecMultiAgentEnv"
 runner: "MARL"
 
