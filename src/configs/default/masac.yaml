@@ -1,0 +1,9 @@
+defaults:
+  - _self_
+  - logger: logger
+  - system: marl/masac
+  - env: multiwalker
+
+hydra:
+  searchpath:
+    - file://src/configs
