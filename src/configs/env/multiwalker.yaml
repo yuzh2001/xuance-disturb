@@ -17,3 +17,7 @@ terminate_on_fall: True  # 是否在跌倒时终止
 remove_on_fall: False  # 是否在跌倒时移除walker
 terrain_length: 200  # 地形长度
 max_cycles: 500  # 最大步数
+
+render: False
+render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
+fps: 50  # The frames per second for the rendering videos in log file.

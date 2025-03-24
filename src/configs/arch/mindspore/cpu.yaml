@@ -1,0 +1,5 @@
+# graphics related
+dl_toolbox: "mindspore"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorflow"
+device: "CPU"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; TensorFlow: "cpu"/"CPU", "gpu"/"GPU"; MindSpore: "CPU", "GPU", "Ascend", "Davinci".
+distributed_training: False
+master_port: '12355'  # The master port for current experiment when use distributed training.

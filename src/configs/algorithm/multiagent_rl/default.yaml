@@ -1,0 +1,20 @@
+# The basic configs to determine which algorithm to use. 最核心的配置，决定采用什么算法
+agent: ???
+learner: ???
+policy: ???
+representation: ???
+runner: MARL
+
+vectorize: SubprocVecMultiAgentEnv
+
+# which mode to be run in?
+benchmark: True # ! self-defined
+test_mode: False  # Whether to run in test mode.
+
+
+# training parameters
+seed: ???  # 随机种子
+parallels: ???  # 并行环境数量
+running_steps: ???
+
+hyperparameters: ???

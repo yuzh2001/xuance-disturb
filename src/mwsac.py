@@ -11,7 +11,7 @@ import wandb
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config_path", type=str, default="./src/configs/masac",
+    parser.add_argument("--config_path", type=str, default="./src/old_configs/masac",
                       help="配置文件路径")
     parser.add_argument("--config_name", type=str, default='mw',
                       help="配置文件名称,如果指定则会在config_path下寻找该文件")

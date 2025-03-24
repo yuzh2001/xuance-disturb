@@ -1,0 +1,31 @@
+defaults:
+  - default
+  - _self_
+
+agent: "MASAC"
+learner: "MASAC_Learner"
+policy: "Gaussian_MASAC_Policy"
+
+representation: "Basic_Identical"
+
+# mode
+benchmark: True
+test_mode: False  # Whether to run in test mode.
+
+# training parameters
+seed: 1  # 随机种子
+parallels: 16  # 并行环境数量
+running_steps: 15000000
+
+hyperparameters:
+  start_training: 10  # start training after n episodes
+  training_frequency: 1
+  buffer_size: 1000000  # 增大buffer size以存储更多经验
+  batch_size: 1024
+  learning_rate_actor: 0.0005  # learning rate for actor
+  learning_rate_critic: 0.0005  # learning rate for critic
+  gamma: 0.99  # discount factor
+  tau: 0.005  # soft update for target networks
+  alpha: 0.01
+  use_automatic_entropy_tuning: True
+

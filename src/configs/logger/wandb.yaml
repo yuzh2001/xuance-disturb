@@ -1,0 +1,8 @@
+# logging
+log_dir: "./logs/matd3/"  # 日志保存路径
+model_dir: "./models/matd3/"  # 模型保存路径
+
+# logging
+logger: "wandb"
+wandb_user_name: "yuzh2001-iscas"
+project_name: "XuanCe_Benchmark"

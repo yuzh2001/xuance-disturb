@@ -1,8 +1,10 @@
 defaults:
   - _self_
-  - logger: logger
-  - system: marl/masac
+  - logger: wandb # [tensorboard, wandb]
+  - algorithm: multiagent_rl/masac
   - env: multiwalker
+  - arch: torch/gpu # [torch/cpu, torch/gpu, tensorflow/cpu, tensorflow/gpu, mindspore/cpu, mindspore/gpu, mindspore/ascend, mindspore/davinci]
+
 
 hydra:
   searchpath:
