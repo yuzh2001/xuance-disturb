@@ -1,10 +1,10 @@
-agent: "MASAC"
+agent: "MATD3"
 env_name: "MultiWalker"
 env_id: "multiwalker_v9"
 env_seed: 1
 continuous_action: True
-learner: "MASAC_Learner"
-policy: "Gaussian_MASAC_Policy"
+learner: "MATD3_Learner"
+policy: "MATD3_Policy"
 representation: "Basic_Identical"
 vectorize: "SubprocVecMultiAgentEnv"
 runner: "MARL"
@@ -23,7 +23,7 @@ project_name: "XuanCe_Benchmark"
 render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
 fps: 50  # The frames per second for the rendering videos in log file.
 test_mode: False  # Whether to run in test mode.
-device: "cuda:0"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; TensorFlow: "cpu"/"CPU", "gpu"/"GPU"; MindSpore: "CPU", "GPU", "Ascend", "Davinci".
+device: "cuda:1"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; TensorFlow: "cpu"/"CPU", "gpu"/"GPU"; MindSpore: "CPU", "GPU", "Ascend", "Davinci".
 master_port: '12355'  # The master port for current experiment when use distributed training.
 
 # environment settings
@@ -40,49 +40,40 @@ terrain_length: 200  # 地形长度
 max_cycles: 500  # 最大步数
 
 # network architecture
-
 representation_hidden_size: []  # the units for each hidden layer
-actor_hidden_size: [512, 512]
-critic_hidden_size: [512, 512]
+actor_hidden_size: [400, 300]
+critic_hidden_size: [400, 300]
 activation: 'relu'
 activation_action: 'sigmoid'
 use_parameter_sharing: True
 use_actions_mask: False
 
+
 # training parameters
 seed: 1  # 随机种子
-parallels: 16  # 并行环境数量
-buffer_size: 1000000  # 增大buffer size以存储更多经验
-batch_size: 512
-learning_rate_actor: 0.0005  # learning rate for actor
-learning_rate_critic: 0.0005  # learning rate for critic
-gamma: 0.99  # discount factor
-tau: 0.005  # soft update for target networks
-alpha: 0.01
-use_automatic_entropy_tuning: True
+parallels: 160  # 并行环境数量
+buffer_size: 100000  # 增大buffer size以存储更多经验
+batch_size: 100
+learning_rate_actor: 0.0001  # learning rate for actor
+learning_rate_critic: 0.001  # learning rate for critic
+gamma: 0.95  # discount factor
+tau: 0.01  # soft update for target networks
+actor_update_delay: 2
 
-start_training: 10  # start training after n episodes
-running_steps: 50000000
-training_frequency: 1
+start_noise: 1.0
+end_noise: 0.01
+sigma: 0.1  # random noise for continuous actions
+start_training: 10000  # start training after n episodes
+running_steps: 10000000
+training_frequency: 25
 
 use_grad_clip: True
 grad_clip_norm: 0.5
 
 # training and evaluation
-eval_interval: 50000  # 评估间隔
-test_episode: 20  # 测试轮数
+eval_interval: 100000  # 评估间隔
+test_episode: 5  # 测试轮数
 
 # logging
 log_dir: "./logs/matd3/"  # 日志保存路径
 model_dir: "./models/matd3/"  # 模型保存路径
-# recurrent settings for Basic_RNN representation.
-use_rnn: False  # If to use recurrent neural network as representation. (The representation should be "Basic_RNN").
-rnn: "GRU"  # The type of recurrent layer.
-fc_hidden_sizes: [64, 64, 64]  # The hidden size of feed forward layer in RNN representation.
-recurrent_hidden_size: 64  # The hidden size of the recurrent layer.
-N_recurrent_layers: 1  # The number of recurrent layer.
-dropout: 0  # dropout should be a number in range [0, 1], the probability of an element being zeroed.
-normalize: "LayerNorm"  # Layer normalization.
-initialize: "orthogonal"  # Network initializer.
-gain: 0.01
-
